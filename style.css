@@ -514,3 +514,4 @@ body.is-resizing-sidebar {
 
 
 
+.editSit,.editMac,.addMac,.addTopic{border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--text);padding:6px 9px}.crud{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px;width:min(650px,90vw)}.crud form,.crud label{display:grid;gap:10px}.crud input,.crud textarea{background:var(--bg);color:var(--text);border:1px solid var(--line);padding:9px}.crud textarea{min-height:140px}.crud footer{display:flex;justify-content:flex-end;gap:8px}
