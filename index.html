@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WB Macros</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <header class="brand">
+          <div class="brand-mark">WB</div>
+          <div>
+            <div class="brand-kicker">Support KB</div>
+            <h1>WB Macros</h1>
+          </div>
+        </header>
+
+        <label class="search-box" for="searchInput">
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="Ctrl+K, тема или вопрос">
+        </label>
+
+        <div class="segment" id="audienceSwitch" aria-label="Раздел">
+          <button class="is-active" type="button" data-audience="passenger">Пассажир</button>
+          <button type="button" data-audience="driver">Водитель</button>
+        </div>
+
+        <nav class="quick-nav" id="quickNav">
+          <button class="is-active" type="button" data-view="all">Все ответы <span id="allCount">0</span></button>
+          <button type="button" data-view="favorites">Избранное <span id="favoritesCount">0</span></button>
+          <button type="button" data-view="recent">Недавние <span id="recentCount">0</span></button>
+        </nav>
+
+        <div class="tree-heading">
+          <span>База знаний</span>
+          <span id="visibleCount">0</span>
+        </div>
+        <div class="tree" id="treeRoot"></div>
+        <div class="sidebar-resize" id="sidebarResize" role="separator" aria-label="Изменить ширину меню"></div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <button class="mobile-menu" id="mobileMenuButton" type="button">Меню</button>
+          <div class="breadcrumbs" id="breadcrumbs">Пассажир</div>
+          <div class="toolbar">
+            <div class="segment segment-small" id="languageSwitch" aria-label="Язык">
+              <button class="is-active" type="button" data-language="ru">RU</button>
+              <button type="button" data-language="uz">UZ</button>
+            </div>
+            <div class="segment segment-small" id="themeSwitch" aria-label="Тема">
+              <button class="is-active" type="button" data-theme="dark">Dark</button>
+              <button type="button" data-theme="light">Light</button>
+            </div>
+          </div>
+        </header>
+
+        <section class="empty-state" id="emptyState">
+          <p>Выберите ситуацию слева или начните поиск.</p>
+        </section>
+
+        <section class="content is-hidden" id="contentView">
+          <div class="article-head">
+            <div>
+              <p class="eyebrow" id="themeLabel"></p>
+              <h2 id="caseTitle"></h2>
+              <p class="description" id="caseDescription"></p>
+              <p class="taxonomy" id="taxonomyLabel"></p>
+            </div>
+            <button class="icon-button" id="favoriteButton" type="button" title="Избранное">☆</button>
+          </div>
+
+          <section class="roadmap" id="roadmapSection">
+            <div class="section-title">
+              <h3>Инструкция</h3>
+              <button id="resetChecklistButton" type="button">Сбросить</button>
+            </div>
+            <div id="roadmapGrid"></div>
+          </section>
+
+          <section class="answers">
+            <div class="section-title">
+              <h3>Рабочий чат</h3>
+              <span id="answersCount">0</span>
+            </div>
+            <div id="answersList"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast-stack" id="toastStack"></div>
+
+    <script src="wb-support-knowledge-v2.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+
