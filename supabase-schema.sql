@@ -1,0 +1,13 @@
+create table if not exists public.situations (id text primary key,data jsonb not null,created_at timestamptz not null default now(),updated_at timestamptz not null default now());
+alter table public.situations enable row level security;
+drop policy if exists "Public read" on public.situations;
+drop policy if exists "Public insert" on public.situations;
+drop policy if exists "Public update" on public.situations;
+drop policy if exists "Public delete" on public.situations;
+create policy "Public read" on public.situations for select to anon, authenticated using (true);
+create policy "Public insert" on public.situations for insert to anon, authenticated with check (true);
+create policy "Public update" on public.situations for update to anon, authenticated using (true) with check (true);
+create policy "Public delete" on public.situations for delete to anon, authenticated using (true);
+create or replace function public.touch_situations() returns trigger language plpgsql as $$ begin new.updated_at=now();return new;end $$;
+drop trigger if exists touch_situations on public.situations;
+create trigger touch_situations before update on public.situations for each row execute function public.touch_situations();
