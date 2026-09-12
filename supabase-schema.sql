@@ -7,3 +7,10 @@ create policy "Public read" on public.situations for select to anon,authenticate
 drop policy if exists "Public audit read" on public.audit_logs;drop policy if exists "Public audit insert" on public.audit_logs;
 create policy "Public audit read" on public.audit_logs for select to anon,authenticated using(true);create policy "Public audit insert" on public.audit_logs for insert to anon,authenticated with check(true);
 create or replace function public.touch_situations() returns trigger language plpgsql as $$ begin new.updated_at=now();return new;end $$;drop trigger if exists touch_situations on public.situations;create trigger touch_situations before update on public.situations for each row execute function public.touch_situations();
+create table if not exists public.backup_snapshots (id bigint generated always as identity primary key,backup_date date not null,data jsonb not null,browser_id text,created_at timestamptz not null default now());
+alter table public.backup_snapshots enable row level security;
+drop policy if exists "Public backup insert" on public.backup_snapshots;
+create policy "Public backup insert" on public.backup_snapshots for insert to anon,authenticated with check(true);
+create or replace function public.keep_seven_backups() returns trigger language plpgsql security definer set search_path=public as $$ begin delete from public.backup_snapshots where id not in(select id from public.backup_snapshots order by created_at desc limit 7);return new;end $$;
+drop trigger if exists trim_backup_snapshots on public.backup_snapshots;
+create trigger trim_backup_snapshots after insert on public.backup_snapshots for each statement execute function public.keep_seven_backups();
